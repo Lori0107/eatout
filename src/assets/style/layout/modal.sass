@@ -1,0 +1,43 @@
+.ui.modal
+  display: flex
+  flex-direction: column
+  padding: 20px
+  .header
+    display: flex
+    flex-direction: column
+    border: none
+    margin-bottom: 10px
+    h3
+      margin-bottom: 0px 
+    &-meta
+      font-weight: lighter
+      color: $grey_color
+      font-size: 1rem
+  .content
+    &-form-restaurant
+      input
+        margin: 8px 0px
+    &-form-stars
+      display: flex
+      justify-content: space-between
+      font-size: 0.9rem
+      p
+        font-weight: bold
+      .ui.radio.checkbox
+        padding-left: 10px
+    &-form-comment
+      display: flex
+      justify-content: space-between
+      font-size: 0.9rem
+      p
+        font-weight: bold
+    &-form-action
+      margin-top: 40px
+      display: flex
+      flex-direction: column
+      align-items:  center
+      .ui.button
+        width: 50%
+        margin-bottom: 10px
+      p
+        color: $grey_color

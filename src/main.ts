@@ -2,14 +2,20 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import * as VueGoogleMaps from 'vue2-google-maps'
+import 'fomantic-ui-css/semantic.min.css'
+import './assets/javascript/semantic.min.js'
+import './assets/style/application.sass'
+import * as GmapVue from 'gmap-vue'
 
-Vue.config.productionTip = false
+let EventBus;
+export default EventBus = new Vue();
 
-Vue.use(VueGoogleMaps, {
+Vue.config.productionTip = false;
+
+Vue.use(GmapVue, {
   load: {
-    key: '',
-    // libraries: 'places', // This is required if you use the Autocomplete plugin
+    key: process.env.VUE_APP_API_KEY,
+    map_ids: 'b36d7b12c78377a9'
   }
 })
 
