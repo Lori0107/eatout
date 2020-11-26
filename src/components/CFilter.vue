@@ -5,8 +5,8 @@
     </div>
     <div class="container-filter-inputs">
       <div class="ui mini labeled input rating min">
-        <div class="ui orange label">
-          Note min.
+        <div class="ui label">
+          Note minimale
         </div>
         <input 
           v-model="minStars" 
@@ -18,8 +18,8 @@
         >
       </div>
       <div class="ui mini labeled input rating max">
-        <div class="ui orange label">
-          Note max.
+        <div class="ui label">
+          Note maximale
         </div>
         <input 
           v-model="maxStars" 

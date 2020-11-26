@@ -1,22 +1,24 @@
+.restaurants-counter
+  h4
+    text-transform: uppercase
+    font-size: 20px
+    padding: 30px 0px 15px
 .container-list
   display: flex
-  height: 50vh
+  height: 60vh
   flex-direction: column
-  margin-top: 20px
-  overflow: scroll
-  overflow-x: hidden
-  // .container-list::-webkit-scrollbar 
-  //   width: 3px
-  .container-list::-webkit-scrollbar-track
-    display: none
+  overflow-y: scroll
   &-card
     width: 99%
     display: flex
     flex-direction: row
-    border: 2px solid $light_grey_color
+    border: 1px solid $light_grey_color
     border-radius: 5px
-    margin: 10px 0px
+    margin: 3px 0px
+    -webkit-box-shadow: 0px 0px 8px -7px rgba(61,61,61,0.72)
+    box-shadow: 0px 0px 8px -7px rgba(61,61,61,0.72)
     &-image
+      width: 30%
       img
         width: 100%
         height: 100%
@@ -48,3 +50,8 @@
           font-weight: bold
           p
             margin-right: 5px
+        &-button.ui.button
+          color: $light_orange_color
+          background: $extralight_orange_color
+          font-weight: bold
+          cursor: pointer

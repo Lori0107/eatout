@@ -30,9 +30,13 @@
         </div>
         <div class="content">
           <h4>{{ restaurantInfo.restaurantName }}</h4>
-          <p v-for="(rating, i) in restaurantInfo.ratings" :key="i">
-            {{ rating.stars }}/5 - "{{ rating.comment }}"
-          </p>
+          <p>{{ restaurantInfo.address }}</p>
+          <a 
+            class="orange text" 
+            @click="showRestaurantRatings(restaurantInfo.id, restaurantInfo.restaurantName, restaurantInfo.ratings)"
+          >
+            Voir les avis
+          </a>
         </div>
       </div>
     </gmap-info-window>
@@ -155,6 +159,9 @@ export default {
     addRestaurant(position) {
       EventBus.$emit('add-new-restaurant');
       this.$store.dispatch('setNewRestaurantPosition', {lat: position.latLng.lat(), long: position.latLng.lng()});
+    },
+    showRestaurantRatings(restaurantId, restaurantName, restaurantReviews) {
+      EventBus.$emit('show-restaurant-ratings', restaurantId, restaurantName, restaurantReviews);
     }
   },
   computed: {

@@ -1,16 +1,24 @@
 .container-filter
+  width: 40%
   display: flex
-  flex-direction: row
-  justify-content: space-between
-  align-items: baseline
-  background-color: #F5F5F5
+  flex-direction: column
+  text-align: center
+  background-color: $light_orange_color
   padding: 10px
   border-radius: 5px
   &-header
+    color: $white_color
     font-weight: bold
+    margin-bottom: 5px
   &-inputs
+    display: flex
+    flex-direction: column
+    align-items: center
     .ui.labeled.input
+      margin-bottom: 5px
+      .ui.label
+        background: $white_color
+        color: $grey_color
+        width: 93px
       input
         border: none
-    .ui.labeled.input.min
-      margin-right: 20px

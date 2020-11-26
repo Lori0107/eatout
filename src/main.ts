@@ -14,8 +14,7 @@ Vue.config.productionTip = false;
 
 Vue.use(GmapVue, {
   load: {
-    key: process.env.VUE_APP_API_KEY,
-    map_ids: 'b36d7b12c78377a9'
+    key: process.env.VUE_APP_API_KEY
   }
 })
 

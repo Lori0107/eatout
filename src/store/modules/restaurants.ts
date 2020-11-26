@@ -2,7 +2,8 @@ import Vue from 'vue';
 import { Module } from 'vuex';
 import axios from 'axios';
 import Restaurant from '../../interfaces/restaurantInterface'
-import { 
+import {
+  asyncForEach,
   getAverageRating, 
   getFilteredRestaurants,
   setIdToNewRestaurant, 
@@ -73,7 +74,6 @@ export const restaurants: Module<any, any> = {
     POST_GPLACE_RESTAURANT: (state, payload) => {
       if(!checkIfIdExist(state.restaurants, payload.place_id)) {
         state.restaurants.push(formatGplaceRestaurant(payload));
-        // console.log("GPLACE RESTAURANTS: ", payload)
       };
     },
     SET_RESTAURANTS_VISIBLES: (state, payload) => {
@@ -115,11 +115,10 @@ export const restaurants: Module<any, any> = {
         '&fields=reviews&key=' + process.env.VUE_APP_API_KEY)
         .then(response => {
           restaurant.ratings = [];
-          //rendre synchrone
-          response.data.result.reviews.map((review: any) => {
+          const reviews = response.data.result.reviews;
+          reviews.forEach((review: any, index: number) => {
             restaurant.ratings.push({stars: review.rating, comment: review.text});
           });
-          // console.log("REVIEWS: ", response.data.result.reviews)
           commit('POST_GPLACE_RESTAURANT', restaurant);
         }).catch(error => {
           console.log(error);

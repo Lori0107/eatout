@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h4>{{ restaurantsToDisplay.length }} Restaurants</h4>
+    <div class="restaurants-counter">
+      <h4>{{ restaurantsToDisplay.length }} restaurants</h4>
+    </div>
     <div class="container-list">
       <div class="container-list-card" v-for="(restaurant, i) in restaurantsToDisplay" :key="i">
         <div class="container-list-card-image">
@@ -14,19 +16,20 @@
           <div class="container-list-card-content-meta">{{ restaurant.address }}</div>
           <div class="container-list-card-content-extra">
             <div class="container-list-card-content-extra-rating">
-              <p>Note</p> 
-              <p>{{ restaurant.averageRating }} / 5</p>
+              <p>NOTE</p> 
+              <p>{{ restaurant.averageRating }}/5</p>
             </div>
-            <button class="ui mini basic orange button" @click="openRatingModal(restaurant.id)">
-              <i class="icon add"></i>
-              Ajouter un avis
+            <button class="container-list-card-content-extra-button ui button" 
+              @click="openRatingModal(restaurant.id, restaurant.restaurantName, restaurant.ratings)"
+            >
+              Voir les avis
             </button>
           </div>
         </div>
       </div>
     </div>
     <div v-show="ratingModalVisible">
-      <CRatingForm :restaurantId="restaurantToRate"></CRatingForm>
+      <CRatingForm :restaurantId="restaurantToRate" :restaurantName="restaurantToRateName" :restaurantRatings="restaurantToRateRatings"></CRatingForm>
     </div>
   </div>
 </template>
@@ -39,13 +42,17 @@ export default {
   data() {
     return {
       restaurantToRate: null,
+      restaurantToRateName: null,
+      restaurantToRateRatings: null,
       ratingModalVisible: false,
       key: process.env.VUE_APP_API_KEY
     }
   },
   methods: {
-    openRatingModal(restaurantId) {
+    openRatingModal(restaurantId, restaurantName, restaurantReviews) {
       this.restaurantToRate = restaurantId;
+      this.restaurantToRateName = restaurantName;
+      this.restaurantToRateRatings = restaurantReviews;
       this.ratingModalVisible = true;
       EventBus.$emit('open-rating-modal');
     },
@@ -60,6 +67,9 @@ export default {
     }
   },
   mounted() {
+    EventBus.$on('show-restaurant-ratings', (restaurantId, restaurantName, restaurantReviews) => {
+      this.openRatingModal(restaurantId, restaurantName, restaurantReviews)
+    });
   },
   components: {
     CRatingForm

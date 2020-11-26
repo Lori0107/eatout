@@ -1,6 +1,12 @@
 import Restaurant from '../interfaces/restaurantInterface'
 import Rating from '../interfaces/ratingInterface'
 
+export const asyncForEach = async (array: any, callback: any) => {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index);
+  }
+}
+
 const sumRatings = (ratings: Rating[]) => {
   const ratingValues = ratings.map(rating => rating.stars);
   return ratingValues.reduce((accumulator: number, currentValue: number) => accumulator + currentValue);

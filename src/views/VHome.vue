@@ -4,9 +4,11 @@
       <CGoogleMap></CGoogleMap>
     </div>
     <div class="home-container-right">
-      <div class="container-logo"></div>
+      <div class="home-container-right-top">
+        <div class="container-logo"></div>
+        <CFilter></CFilter>
+      </div>
       <CRestaurantForm v-show="restaurantFormVisible"></CRestaurantForm>
-      <CFilter></CFilter>
       <CRestaurantsList></CRestaurantsList>
     </div>
     
