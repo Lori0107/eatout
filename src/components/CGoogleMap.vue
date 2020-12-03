@@ -144,11 +144,13 @@ export default {
       this.getRestaurantsOnGmap(this.restaurants, this.bounds);
     },
     getRestaurantsOnGmap(restaurants, bounds) {
-      const restaurantsOnGmap = restaurants.filter(restaurant => {
-        const location = new google.maps.LatLng(restaurant.position.lat, restaurant.position.lng);
-        return bounds && bounds.contains(location);
-      });
-      this.$store.commit('SET_RESTAURANTS_VISIBLES', restaurantsOnGmap);
+      this.$gmapApiPromiseLazy().then(() => {
+        const restaurantsOnGmap = restaurants.filter(restaurant => {
+          const location = new google.maps.LatLng(restaurant.position.lat, restaurant.position.lng);          
+          return bounds && bounds.contains(location);
+        });
+        this.$store.commit('SET_RESTAURANTS_VISIBLES', restaurantsOnGmap);
+      })
     },
     toggleInfoWindow(restaurant, index) {
       this.infoWindowPosition = restaurant.position;

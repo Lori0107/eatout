@@ -1,9 +1,7 @@
-import Vue from 'vue';
 import { Module } from 'vuex';
 import axios from 'axios';
 import Restaurant from '../../interfaces/restaurantInterface'
 import {
-  asyncForEach,
   getAverageRating, 
   getFilteredRestaurants,
   setIdToNewRestaurant, 
@@ -95,13 +93,21 @@ export const restaurants: Module<any, any> = {
         commit('SET_RESTAURANTS_AVERAGE_RATING');
       })
     },
-    getGplaceRestaurants: ({dispatch}, userPosition) => {
-      axios.get(
-        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' 
-        + userPosition.lat + ',' 
-        + userPosition.long + 
-        '&radius=1500&type=restaurant&key=' + process.env.VUE_APP_API_KEY)
+    getGplaceRestaurants: ({dispatch}, mapPosition) => {
+      axios({
+        method: 'get',
+        url: 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' 
+        + mapPosition.lat + ',' 
+        + mapPosition.long + 
+        '&radius=150&type=restaurant&key=' + process.env.VUE_APP_API_KEY,
+      })
+      // axios.get(
+      //   'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' 
+      //   + mapPosition.lat + ',' 
+      //   + mapPosition.long + 
+      //   '&radius=150&type=restaurant&key=' + process.env.VUE_APP_API_KEY)
       .then(response => {
+        console.log("RESPONSE: ", response);
         dispatch('getGplaceRatings', response.data.results);
       }).catch(error => {
         console.log("Google places error: ", error);
@@ -109,17 +115,25 @@ export const restaurants: Module<any, any> = {
     },
     getGplaceRatings: ({commit}, gmapRestaurants) => {
       gmapRestaurants.map((restaurant: any) => {
-        axios.get(
-        'https://maps.googleapis.com/maps/api/place/details/json?place_id='
-        + restaurant.place_id +
-        '&fields=reviews&key=' + process.env.VUE_APP_API_KEY)
+        axios({
+          method: 'get',
+          url: 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id='
+          + restaurant.place_id +
+          '&fields=reviews&key=' + process.env.VUE_APP_API_KEY
+        })
+        // axios.get(
+        // 'https://maps.googleapis.com/maps/api/place/details/json?place_id='
+        // + restaurant.place_id +
+        // '&fields=reviews&key=' + process.env.VUE_APP_API_KEY)
         .then(response => {
           restaurant.ratings = [];
           const reviews = response.data.result.reviews;
-          reviews.forEach((review: any, index: number) => {
-            restaurant.ratings.push({stars: review.rating, comment: review.text});
-          });
-          commit('POST_GPLACE_RESTAURANT', restaurant);
+          if(reviews) {
+            reviews.forEach((review: any) => {
+              restaurant.ratings.push({stars: review.rating, comment: review.text});
+            });
+            commit('POST_GPLACE_RESTAURANT', restaurant);
+          }
         }).catch(error => {
           console.log(error);
         })

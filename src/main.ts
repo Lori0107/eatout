@@ -14,7 +14,8 @@ Vue.config.productionTip = false;
 
 Vue.use(GmapVue, {
   load: {
-    key: process.env.VUE_APP_API_KEY
+    key: process.env.VUE_APP_API_KEY,
+    libraries: 'places'
   }
 })
 
