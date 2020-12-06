@@ -8,7 +8,7 @@ export default interface Restaurant {
   ratings: Rating[],
   lat: number,
   long: number,
-  position ? : Position,
-  averageRating ? : number,
-  totalRatings ? : number
+  position? : Position,
+  averageRating? : number,
+  totalRatings? : number
 }

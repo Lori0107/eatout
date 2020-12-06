@@ -17,7 +17,7 @@ Puis suivez les commandes d'installation.
 yarn install ou npm install
 ```
 
-### Compilation et minification en production
+## Lancement du projet en local
 ```
-yarn build ou npm build
+yarn serve ou npm serve
 ```

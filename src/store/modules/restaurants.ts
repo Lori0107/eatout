@@ -31,9 +31,6 @@ export const restaurants: Module<any, any> = {
     },
     restaurantsToDisplay: state => {
       return state.restaurantsVisibles;
-    },
-    restaurantFormVisible: state => {
-      return state.restaurantFormVisible;
     }
   },
   mutations: {
@@ -45,7 +42,7 @@ export const restaurants: Module<any, any> = {
     },
     SET_RESTAURANTS_AVERAGE_RATING: (state) => {
       state.restaurants.map((restaurant: Restaurant) => {
-        restaurant.averageRating = getAverageRating(restaurant.ratings);
+        restaurant.averageRating = +getAverageRating(restaurant.ratings);
       });
     },
     SET_RESTAURANT_AVERAGE_RATING: (state, restaurantId) => {
@@ -67,7 +64,8 @@ export const restaurants: Module<any, any> = {
       setIdToNewRestaurant(state.restaurants, payload);
       setPositionToNewRestaurant(state.newRestaurantPosition, payload);
       payload.averageRating = 0;
-      state.restaurants.push(payload)
+      console.log("RESTAURANT PUSHED", payload)
+      state.restaurants.push(payload);
     },
     POST_GPLACE_RESTAURANT: (state, payload) => {
       if(!checkIfIdExist(state.restaurants, payload.place_id)) {

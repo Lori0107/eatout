@@ -19,7 +19,7 @@ export const getAverageRating = (ratings: Rating[]) => {
 }
 
 export const getFilteredRestaurants = (restaurants: Restaurant[], minFilter: Number, maxFilter: Number) => {
-  return restaurants.filter((restaurant: Restaurant) => restaurant.averageRating >= minFilter && restaurant.averageRating <= maxFilter);
+  return restaurants.filter((restaurant: Restaurant) => restaurant.averageRating != undefined && restaurant.averageRating >= minFilter && restaurant.averageRating <= maxFilter);
 }
 
 export const setIdToNewRestaurant = (restaurants: Restaurant[], newRestaurant: Restaurant) => { newRestaurant.id = restaurants.length + 1 };
