@@ -7,7 +7,8 @@ Pour ouvrir ce projet sur votre machine :
 
 1 - À la racine du projet : Copiez-collez le fichier .env.local.example, renommer le par .env.local et renseignez votre clé API Google à la place de 'TODO'
 
-2 - Installez un gestionnaire de paquet si vous n'en avez pas sur votre machine (Yarn: https://classic.yarnpkg.com/en/docs/getting-started, NPM: https://docs.npmjs.com/getting-started)
+2 - Installez un gestionnaire de paquet si vous n'en avez pas sur votre machine 
+(Yarn: https://classic.yarnpkg.com/en/docs/getting-started, NPM: https://docs.npmjs.com/getting-started)
 
 Puis suivez les commandes d'installation.
 
