@@ -1,4 +1,4 @@
-# Eatout
+# EatOut
 Ce projet est une application d'avis de restaurant.
 Il est possible d'utiliser la géolocalisation de votre navigateur afin de consulter la liste des restaurants proches de chez vous.
 Les fonctionnalités de cette application sont également disponibles sans utiliser la géolocalisation (Consultation des restaurants, ajout d'un restaurant, ajout d'un avis,...).
