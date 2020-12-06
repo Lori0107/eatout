@@ -94,20 +94,12 @@ export const restaurants: Module<any, any> = {
       })
     },
     getGplaceRestaurants: ({dispatch}, mapPosition) => {
-      axios({
-        method: 'get',
-        url: 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' 
+      axios.get(
+        'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' 
         + mapPosition.lat + ',' 
-        + mapPosition.long + 
-        '&radius=150&type=restaurant&key=' + process.env.VUE_APP_API_KEY,
-      })
-      // axios.get(
-      //   'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' 
-      //   + mapPosition.lat + ',' 
-      //   + mapPosition.long + 
-      //   '&radius=150&type=restaurant&key=' + process.env.VUE_APP_API_KEY)
+        + mapPosition.long +
+        '&radius=200&type=restaurant&key=' + process.env.VUE_APP_API_KEY)
       .then(response => {
-        console.log("RESPONSE: ", response);
         dispatch('getGplaceRatings', response.data.results);
       }).catch(error => {
         console.log("Google places error: ", error);
@@ -115,16 +107,10 @@ export const restaurants: Module<any, any> = {
     },
     getGplaceRatings: ({commit}, gmapRestaurants) => {
       gmapRestaurants.map((restaurant: any) => {
-        axios({
-          method: 'get',
-          url: 'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id='
+        axios.get(
+          'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id='
           + restaurant.place_id +
-          '&fields=reviews&key=' + process.env.VUE_APP_API_KEY
-        })
-        // axios.get(
-        // 'https://maps.googleapis.com/maps/api/place/details/json?place_id='
-        // + restaurant.place_id +
-        // '&fields=reviews&key=' + process.env.VUE_APP_API_KEY)
+          '&fields=reviews&key=' + process.env.VUE_APP_API_KEY)
         .then(response => {
           restaurant.ratings = [];
           const reviews = response.data.result.reviews;

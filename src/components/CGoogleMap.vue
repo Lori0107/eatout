@@ -5,16 +5,15 @@
     id="#map"
     map-type-id="terrain"
     :center="userLocation"
-    :zoom="10"
+    :zoom="15"
     :options="{
       mapTypeControl: false,
       streetViewControl: false,
       fullscreenControl: false,
     }"
     @click="addRestaurant($event)"
-    @bounds_changed="boundsChanged($event)"
+    @idle="boundsChanged()"
   >
-    <div v-show="positionLoading">LOCALISATION EN COURS</div>
     <gmap-info-window
       :options="infoWindowOptions" 
       :position="infoWindowPosition" 
@@ -70,8 +69,7 @@ export default {
   data() {
     return {
       key: process.env.VUE_APP_API_KEY,
-      positionLoading: false,
-      userLocation: { lat: 45.508, lng: -73.587 },
+      userLocation: { lat: 48.866667, lng: 2.333333 },
       userMarker: [],
       restaurantsVisibles: [],
       infoWindowOptions: {
@@ -92,24 +90,15 @@ export default {
   methods: {
     getUserLocation() {
       if(navigator.geolocation) {
-        this.positionLoading = true;
         navigator.geolocation.getCurrentPosition(this.saveUserLocation, this.handleErrorPosition)
       } else {
-        alert('La géolocalisation n\'est pas supportée par votre navigateur.');
+        alert('La géolocalisation n\'est pas supportée par votre navigateur');
       }
     },
     saveUserLocation(position) {
-      this.positionLoading = false;
-      console.log("Position récupérée");
       this.userLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
       this.userMarker = [{ position: { lat: position.coords.latitude, lng: position.coords.longitude }}];
-      this.$store.dispatch(
-        'getGplaceRestaurants', 
-        {
-          lat: position.coords.latitude, 
-          long: position.coords.longitude
-        }
-      );
+      this.boundsChanged();
     },
     handleErrorPosition(error) {
       console.log(error);
@@ -133,8 +122,8 @@ export default {
         return restaurant = { ...restaurant, position: { lat: restaurant.lat, lng: restaurant.long }};
       });
     },
-    boundsChanged(bounds) {
-      this.$store.dispatch('setBounds', bounds);
+    boundsChanged() {
+      this.$store.dispatch('setBounds', this.$refs.gmap.$mapObject.getBounds());
       this.$store.dispatch('getGplaceRestaurants', 
         {
           lat: this.$refs.gmap.$mapObject.getCenter().lat(), 
