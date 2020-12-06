@@ -1,24 +1,22 @@
-# eatout
+# Eatout
+Ce projet est une application d'avis de restaurant.
+Il est possible d'utiliser la géolocalisation de votre navigateur afin de consulter la liste des restaurants proches de chez vous.
+Les fonctionnalités de cette application sont également disponibles sans utiliser la géolocalisation (Consultation des restaurants, ajout d'un restaurant, ajout d'un avis,...).
 
-## Project setup
-```
-yarn install
-```
+Pour ouvrir ce projet sur votre machine :
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+1 - À la racine du projet : Copiez-collez le fichier .env.local.example, renommer le par .env.local et renseignez votre clé API Google à la place de 'TODO'
 
-### Compiles and minifies for production
-```
-yarn build
-```
+2 - Installez un gestionnaire de paquet si vous n'en avez pas sur votre machine (Yarn: https://classic.yarnpkg.com/en/docs/getting-started, NPM: https://docs.npmjs.com/getting-started)
 
-### Run your unit tests
+Puis suivez les commandes d'installation.
+
+## Installation du projet
 ```
-yarn test:unit
+yarn install ou npm install
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Compilation et minification en production
+```
+yarn build ou npm build
+```
